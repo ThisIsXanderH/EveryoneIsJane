@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+
+#titleHeader {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	text-align:center;
+}
+
+#titleContent {
+	position:absolute;
+	top:150px;
+	left:0;
+	right:0;
+	bottom:0;
+	padding-left:15%;
+	padding-right:15%;
+	text-align:center;
+	display:flex;
+	flex-direction: column;
+}
+
+#titleContent > div {
+	-webkit-flex: 1;
+	flex:1;
+}
+
+
+.content {
+	position:absolute;
+	top:50px;
+	left:0;
+	right:0;
+	padding-left:20px;
+	padding-right:20px;
+	text-align:center;
+}
+
+.header {
+	text-align:center;
+}
+
+.backButton {
+	position:absolute;
+	top:3px;
+	left:5px;
+	width:80px !important; /*Without the !important, this doesn't work as a class. Does work as an id though. Not quite sure why. */
+}
+
+
+img {
+	max-width:100%;
+	padding-left:-20px; /* I do not recall why these are -20px. */
+	padding-right:-20px; /* I do not recall why these are -20px. */
+}
