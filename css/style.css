@@ -26,16 +26,20 @@
 	-webkit-flex: 1;
 	flex:1;
 }
-
-
-.content {
+.contentNoTop, .content {
 	position:absolute;
-	top:50px;
 	left:0;
 	right:0;
 	padding-left:20px;
 	padding-right:20px;
 	text-align:center;
+}
+.content {
+	top:50px;
+}
+
+.contentNoTop {
+	top:0;	
 }
 
 .header {
@@ -60,3 +64,6 @@ img {
 	text-align:center;
 }
 
+.hidden {
+	display:none;	
+}
