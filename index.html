@@ -11,6 +11,9 @@
 <!-- Include jQuery Mobile stylesheets -->
 <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
 
+<!-- Include JQM Button Number Input -->
+<link rel="stylesheet" href="css/number-input.css">
+
 <!-- Genres stylesheet -->
 <link rel="stylesheet" href="css/style.css">
 
@@ -22,7 +25,6 @@
 
 <!-- Include the jQuery Mobile library -->
 <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-
 
 <!-- Include Phonegap API -->
 <script type="text/javascript" src="phonegap.js"></script>
@@ -37,7 +39,6 @@
 </head>
 
 <body>
-
 <div id="pageTitle" class="page" data-role="page">
     <div id="titleHeader"><img src="images/John-Header.png"/></div>
     <div id="titleContent">
@@ -95,36 +96,51 @@ Also gives opportunity to change starting bet.
 
 -->
 <div id="pageSetupPnP1" class="page" data-role="page">
-	<button class="navButton backButton" data-link="pageTitle">Back</button>
+	<button class="ui-btn ui-corner-all navButton backButton" data-link="pageTitle">Back</button>
 	<div class="content">
     	<h1 class="header">DM Setup</h1>
-        Name: <input type="text"/><br>
-        Keep Secret:<br>
-		<!-- Note: This might end up being changed to be always shown to the DM and whether they reveal is at their discretion -->
-        <label><input type="checkbox">Skills</label>
-        <label><input type="checkbox">Remaining Willpower</label>
-        <label><input type="checkbox">Bets</label>
-            
-        <label><input type="checkbox" checked>Skills</label><br>
-		Passcode (Optional): <input type="tel"/><br>
-        Total Willpower<br>
-		<input type="number"/>
-		<label><input type="checkbox"/>Enable Third Skill</label><br>
-        Third Skill Cost<br>
-		<input type="text" data-role="spinbox" value="3" min="0" max="10"/> <!-- TODO: This is broken, swap over to https://jqueryui.com/spinner/ -->
-        
-        <!-- TODO: Cut the text from here to the end of the div. It's just for reference. -->
--Name? Textbox (You can maybe cut this, just have them be referred to as "DM")
--What to keep secret
-	-Skills (Checkbox)
-    -Willpower (Checkbox)
-    -Bets (Checkbox)
--Passcode (4 Digits, Optional)
--Allow Third Skill (Checkbox)
-	-Set WP Cost (Number, 0+ [If it's 0 don't have it be optional for player setup])
--Total WP (Number, I guess 5+? 10+?)
--Number of players? (Number wheel, 1+)
+        <form id="dmSetup">
+            Name: <input type="text"/><br>
+            Keep Secret:<br>
+            <!-- Note: This might end up being changed to be always shown to the DM and whether they reveal is at their discretion -->
+            <label><input type="checkbox">Skills</label>
+            <label><input type="checkbox">Remaining Willpower</label>
+            <label><input type="checkbox">Bets</label><br>
+            Passcode (Optional): <input type="tel" maxlength="4"/><br>
+            Total Willpower<br>
+            <div id="dmSetupTotalWP" class="numberInput" data-min="0" data-max="50" data-init="10"></div>
+    
+            <label><input id="dmSetupSkill3Enable" type="checkbox"/>Allow Third Skill</label><br>
+            <div id="dmSetupSkill3Cost">
+                Third Skill Cost
+                <div id="dmSetupSkill3CostNumber" class="numberInput" data-min="0" data-max="10" data-init="3"></div> <!-- TODO: Make this update to account for changing maximum. Use .on("change","#dmSetupSkill3Cost" -->
+            </div>
+            Number of Players<br>
+            (Not counting you, the DM)<br>
+            <div id="dmSetupNumPlayers" class="numberInput" data-min="2" data-init="2"></div>
+		</form>
+		<button id="dmSetupCommitButton" class="navButton" data-link="pageSetupPnP2">Next</button> <!-- TODO: Organise this to go to a "passing" page. Set it up to be standardised, there's a decent amount of passing -->
+        <!-- NOTE: Weird issue, if you put this within the form it refreshes the page (showing the title) before going to the correct page. This is presumably default form behaviour, trying to send the data like a good little form. -->
     </div>
+</div>
+
+<div id="pageSetupPnP2" class="page" data-role="page">
+	<button class="ui-btn ui-corner-all navButton backButton" data-link="pageSetupPnP1">Back</button>
+	<div class="content">
+    	<h1 class="header">Player Setup</h1>
+        <form id="playerSetup">
+            Name: <input type="text"/><br>
+            Obsession/Goal: <input type="text"/><br>
+            Skills:<input type="text"/><br>
+            <input type="text"/><br>
+            <label><input id="playerSetupSkill3Enable" type="checkbox"/>Enable Third Skill? (-<span id="playerSetupSkill3CostDisplay">3</span> Starting Willpower)</label><br> 
+            <!-- TODO: Make submitting the DM setup change what the willpower says here -->
+        	<input id="playerSetupSkill3" type="text"/>
+            Initial Bet: 
+            <div id="playerSetupInitialBet" class="numberInput" data-min="0" data-max="10" data-init="0"></div> <!-- TODO: This will need to account for max being remaing WP -->
+        </form>
+		<button id="playerSetupCommitButton" class="navButton" data-link="pageSetupPnP3">Next</button> 
+	</div>
 </div>
 
 <div id="pageHow" class="page" data-role="page">
@@ -134,6 +150,8 @@ Also gives opportunity to change starting bet.
 	</div>
 	
 </div>
+
+
 <br>
 
 <div id="pageCredits" class="page" data-role="page">
@@ -163,6 +181,8 @@ Also gives opportunity to change starting bet.
 <script type="text/javascript" src="js/main.js">
 
 </script>
+<!-- Include JQM Button Number Input -->
+<script type="text/javascript" src="js/number-input.js"></script>
 
 
 </body>
