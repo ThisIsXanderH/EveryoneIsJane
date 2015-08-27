@@ -28,7 +28,8 @@ function gotoPassPage(name,destination) {
 };
 
 var numPlayers,
-playerName;
+playerName,
+curPlayer;
 $('#dmSetupCommitButton').click(function() {
 	numPlayers = parseInt($('#dmSetupNumPlayers').data('val'));
 	playerName = []; //Wipe array
@@ -37,7 +38,17 @@ $('#dmSetupCommitButton').click(function() {
 		playerName[i] = "the next player";
 	}
 	playerName[0] = "the first player";
-	gotoPassPage(playerName[0],'pageSetupPnP2');
+	curPlayer = 0;
+	gotoPassPage(playerName[curPlayer],'pageSetupPnP2');
+});
+
+$('#playerSetupCommitButton').click(function() {
+	curPlayer++;
+	gotoPassPage(playerName[curPlayer],'pageSetupPnP2');
+});
+
+$(document).on('pagehide','pageSetupPnP2',function() {
+	$('#pageSetupPnP2').scrollTop(0);
 });
 
 <!-- TODO: Use numerical staging for this. 0 = setup, 1 = revision, 2 = playing I guess? -->
